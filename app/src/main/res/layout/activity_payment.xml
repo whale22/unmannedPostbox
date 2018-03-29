@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.user.unmannedpostbox.payment">
+
+    <Button
+        android:id="@+id/card"
+        android:layout_width="98dp"
+        android:layout_height="98dp"
+        android:text="신용카드"
+        tools:layout_editor_absoluteX="25dp"
+        tools:layout_editor_absoluteY="212dp" />
+
+    <Button
+        android:id="@+id/account"
+        android:layout_width="98dp"
+        android:layout_height="98dp"
+        android:text="계좌이체"
+        tools:layout_editor_absoluteX="143dp"
+        tools:layout_editor_absoluteY="212dp" />
+
+    <Button
+        android:id="@+id/phone"
+        android:layout_width="98dp"
+        android:layout_height="98dp"
+        android:text="휴대폰"
+        tools:layout_editor_absoluteX="259dp"
+        tools:layout_editor_absoluteY="212dp" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="157dp"
+        android:layout_height="31dp"
+        android:text="결제방식 선택"
+        android:textSize="25dp"
+        tools:layout_editor_absoluteX="33dp"
+        tools:layout_editor_absoluteY="163dp" />
+
+</android.support.constraint.ConstraintLayout>
