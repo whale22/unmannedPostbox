@@ -22,7 +22,7 @@ public class card extends AppCompatActivity {
                 startActivity(intent);
                 break;
             case R.id.account:
-                intent = new Intent(getApplicationContext(), account.class);
+                intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
                 break;
             case R.id.phone:

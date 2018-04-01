@@ -23,7 +23,7 @@ public class SendActivity extends AppCompatActivity implements View.OnClickListe
                 this.finish();
                 break;
             case R.id.submit_action:
-                startActivity(new Intent(this,SendActivity.class));
+                startActivity(new Intent(this, payment.class));
                 break;
         }
     }
