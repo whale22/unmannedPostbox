@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             })
                             .show(); // 팝업창 보여줌
                 }else{ // 택배함이 닫힌 경우
-                    startActivity(new Intent(this,SendActivity.class));
+                    startActivity(new Intent(this,NFCActivity.class));
                 }
                 break;
             case R.id.sendButton:

@@ -16,10 +16,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SendActivity"/>
+        <activity android:name=".SendActivity" />
         <activity android:name=".payment" />
         <activity android:name=".card" />
-        <activity android:name=".phone"></activity>
+        <activity android:name=".phone" />
+        <activity android:name=".NFCActivity" />
+        <activity android:name=".SendSuccessActivity" />
+        <activity android:name=".RecvSuccessActivity"></activity>
     </application>
 
 </manifest>
