@@ -7,8 +7,11 @@ import android.widget.Button;
 import android.view.View;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.widget.Switch;
+import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.CompoundButton;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener  {
     state s = new state();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
