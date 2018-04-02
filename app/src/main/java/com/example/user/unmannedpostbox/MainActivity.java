@@ -3,13 +3,11 @@ package com.example.user.unmannedpostbox;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.content.Intent;
-import android.widget.Button;
 import android.view.View;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.widget.Switch;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.CompoundButton;
+import android.widget.Switch;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener  {
     state s = new state();
@@ -17,12 +15,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Switch sw = findViewById(R.id.switch1);
+        sw.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                s.switchState();
+            }
+        });
         findViewById(R.id.takeButton).setOnClickListener(this);
         findViewById(R.id.sendButton).setOnClickListener(this);
 
     }
     public void onClick(View v) {
-        //Intent intent = null;
         switch (v.getId()) {
             case R.id.takeButton:
                 if(s.getFlag()==0) { // 택배함이 열린 경우
