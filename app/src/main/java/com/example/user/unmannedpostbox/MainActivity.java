@@ -21,10 +21,41 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 s.switchState();
             }
+            //위젯에 대한 참조.
+            tv_outPut = (TextView) findViewById(R.id.tv_output);
+            //url 설정
+            String url="";
+
+            //AsyncTask를 통해 HttpURLConnection 수행
+            NetworkTask networkTask = new NetworkTask(url, null);
+            networkTask.execute();
+
         });
         findViewById(R.id.takeButton).setOnClickListener(this);
         findViewById(R.id.sendButton).setOnClickListener(this);
 
+    }
+    public class NetworkTask extends AsyncTask<Void, Void, String>{
+        private String url;
+        private ContentValues values;
+
+        public NetworkTast(String url, ContentValues values){
+            this.url = url;
+            this.values = values;
+        }
+
+        protected String doInBackground(Void... params){
+            String result;//요청 결과를 저장할 변수
+            RequestHttpURLConnection requestHttpURLConnection = new RequestHttpURLConnection();
+            result = requestHttpURLConnection.request(url, values);//url에서 결과 받아오기
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            tv_outPut.setText(s);
+        }
     }
     public void onClick(View v) {
         switch (v.getId()) {
