@@ -22,7 +22,8 @@
         <activity android:name=".phone" />
         <activity android:name=".NFCActivity" />
         <activity android:name=".SendSuccessActivity" />
-        <activity android:name=".RecvSuccessActivity"></activity>
+        <activity android:name=".RecvSuccessActivity" />
+        <activity android:name=".OpenCloseActivity"></activity>
     </application>
 
 </manifest>
