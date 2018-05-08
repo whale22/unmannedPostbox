@@ -1,5 +1,7 @@
 package com.example.user.unmannedpostbox;
 
+import android.content.ContentValues;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.content.Intent;
@@ -8,6 +10,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.widget.CompoundButton;
 import android.widget.Switch;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener  {
     state s = new state();
@@ -21,6 +24,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 s.switchState();
             }
+            /*
             //위젯에 대한 참조.
             tv_outPut = (TextView) findViewById(R.id.tv_output);
             //url 설정
@@ -29,13 +33,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             //AsyncTask를 통해 HttpURLConnection 수행
             NetworkTask networkTask = new NetworkTask(url, null);
             networkTask.execute();
+            */
 
         });
         findViewById(R.id.takeButton).setOnClickListener(this);
         findViewById(R.id.sendButton).setOnClickListener(this);
 
     }
-    public class NetworkTask extends AsyncTask<Void, Void, String>{
+    /*
+    public class NetworkTask extends AsyncTask<Void, Void, String> {
         private String url;
         private ContentValues values;
 
@@ -57,6 +63,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             tv_outPut.setText(s);
         }
     }
+    */
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.takeButton:

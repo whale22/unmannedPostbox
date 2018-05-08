@@ -15,6 +15,7 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
+import java.net.ProtocolException;
 import java.net.URL;
 
 public class OpenCloseActivity extends AppCompatActivity implements View.OnClickListener {
@@ -37,7 +38,7 @@ public class OpenCloseActivity extends AppCompatActivity implements View.OnClick
             //--------------------------
             //   URL 설정하고 접속하기
             //--------------------------
-            URL url = new URL("192.168.0.1");       // URL 설정
+            URL url = new URL("http://192.168.174.128:8080/");       // URL 설정
             HttpURLConnection http = (HttpURLConnection) url.openConnection();   // 접속
             //--------------------------
             //   전송 모드 설정 - 기본적인 설정이다
@@ -52,7 +53,6 @@ public class OpenCloseActivity extends AppCompatActivity implements View.OnClick
             //--------------------------
             //   서버로 값 전송
             //--------------------------
-            /*
             StringBuffer buffer = new StringBuffer();
             buffer.append("id").append("=").append(myId).append("&");                 // php 변수에 값 대입
             buffer.append("pword").append("=").append(myPWord).append("&");   // php 변수 앞에 '$' 붙이지 않는다
@@ -72,7 +72,7 @@ public class OpenCloseActivity extends AppCompatActivity implements View.OnClick
             String str;
             while ((str = reader.readLine()) != null) {       // 서버에서 라인단위로 보내줄 것이므로 라인단위로 읽는다
                 builder.append(str + "\n");                     // View에 표시하기 위해 라인 구분자 추가
-            }*/
+            }
             Toast.makeText(OpenCloseActivity.this, "수동 개폐 완료", 0).show();
         } catch (MalformedURLException e) {
             //
@@ -90,4 +90,4 @@ public class OpenCloseActivity extends AppCompatActivity implements View.OnClick
                 break;
         }
     }
-} // Activity
+}
