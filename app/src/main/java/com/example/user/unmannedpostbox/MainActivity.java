@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
         findViewById(R.id.takeButton).setOnClickListener(this);
         findViewById(R.id.sendButton).setOnClickListener(this);
+        findViewById(R.id.openButton).setOnClickListener(this);
 
     }
     /*
@@ -77,7 +78,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             })
                             .show(); // 팝업창 보여줌
                 }else{ // 택배함이 닫힌 경우
-                    startActivity(new Intent(this,NFCActivity.class));
+                    startActivity(new Intent(this,BarcodeActivity.class));
                 }
                 break;
             case R.id.sendButton:
@@ -93,6 +94,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             })
                             .show(); // 팝업창 보여줌
                 }
+                break;
+                case R.id.openButton:
+                    startActivity(new Intent(this,OpenCloseActivity.class));
                 break;
         }
     }

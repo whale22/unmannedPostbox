@@ -5,31 +5,29 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
-public class card extends AppCompatActivity {
+public class card extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_card);
+        findViewById(R.id.button).setOnClickListener(this);
     }
-    public void onClick(View arg0) {
+    public void onClick(View v) {
         Intent intent = null;
 
-        switch (arg0.getId()) {
+        switch (v.getId()) {
 
-            case R.id.card:
-                intent = new Intent(getApplicationContext(), card.class);
-                startActivity(intent);
-                break;
-            case R.id.account:
-                intent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.phone:
-                intent = new Intent(getApplicationContext(), phone.class);
+            case R.id.button:
+                intent = new Intent(getApplicationContext(), payComplete.class);
                 startActivity(intent);
                 break;
 
         }
+    }
+
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+
     }
 }

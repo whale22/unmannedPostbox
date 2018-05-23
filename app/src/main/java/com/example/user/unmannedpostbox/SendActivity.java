@@ -6,6 +6,19 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.util.Log;
+import android.widget.Toast;
+
+//import com.google.zxing.integration.androidlIntegrator;
+//import com.google.zxing.integration.android.IntentResult;
+//윗 두줄 추가
+
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserFactory;
+
+import java.net.HttpURLConnection;
+import java.net.URL;
+
 
 public class SendActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -16,6 +29,7 @@ public class SendActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.cancel_action).setOnClickListener(this);
         findViewById(R.id.submit_action).setOnClickListener(this);
     }
+
 
     public void onClick(View v) {
         switch (v.getId()) {

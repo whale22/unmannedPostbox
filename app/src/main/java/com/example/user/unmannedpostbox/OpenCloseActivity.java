@@ -1,7 +1,9 @@
 package com.example.user.unmannedpostbox;
 
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TabHost;
@@ -10,7 +12,9 @@ import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.HttpURLConnection;
@@ -22,6 +26,7 @@ public class OpenCloseActivity extends AppCompatActivity implements View.OnClick
     // 전역변수를 선언한다
     String myId, myPWord, myTitle, mySubject, myResult;
 
+    BackgroundTask task;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,12 +34,33 @@ public class OpenCloseActivity extends AppCompatActivity implements View.OnClick
         findViewById(R.id.control_action).setOnClickListener(this);
         findViewById(R.id.cancel_action).setOnClickListener(this);
     }
+    class BackgroundTask extends AsyncTask<Integer, Integer, Integer> {
+        protected void onPreExecute() {
+        }
+
+        @Override
+        protected Integer doInBackground(Integer... arg0) {
+            // TODO Auto-generated method stub
+            HttpPostData();
+            return null;
+        }
+
+        protected void onPostExecute(Integer a) {
+            //tv.setText(result);
+        }
+
+    }
+
+
+
 
     //------------------------------
     //   Http Post로 주고 받기
     //------------------------------
     public void HttpPostData() {
         try {
+
+            String response = null;
             //--------------------------
             //   URL 설정하고 접속하기
             //--------------------------
@@ -50,6 +76,14 @@ public class OpenCloseActivity extends AppCompatActivity implements View.OnClick
 
             // 서버에게 웹에서 <Form>으로 값이 넘어온 것과 같은 방식으로 처리하라는 걸 알려준다
             http.setRequestProperty("content-type", "application/x-www-form-urlencoded");
+            http.connect();
+            response = http.getResponseMessage();
+            Log.d("RESPONSE", "The response is: " + response);
+
+            OutputStream os = http.getOutputStream(); //output스트림 개방
+            InputStream is = http.getInputStream();        //input스트림 개방
+
+            /*
             //--------------------------
             //   서버로 값 전송
             //--------------------------
@@ -72,7 +106,7 @@ public class OpenCloseActivity extends AppCompatActivity implements View.OnClick
             String str;
             while ((str = reader.readLine()) != null) {       // 서버에서 라인단위로 보내줄 것이므로 라인단위로 읽는다
                 builder.append(str + "\n");                     // View에 표시하기 위해 라인 구분자 추가
-            }
+            }*/
             Toast.makeText(OpenCloseActivity.this, "수동 개폐 완료", 0).show();
         } catch (MalformedURLException e) {
             //
@@ -80,13 +114,16 @@ public class OpenCloseActivity extends AppCompatActivity implements View.OnClick
             //
         } // try
     } // HttpPostData
+
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.cancel_action:
                 this.finish();
                 break;
             case R.id.control_action:
-                HttpPostData();   // 서버와 자료 주고받기
+
+                task = new BackgroundTask();
+                task.execute(); // 서버와 자료 주고받기
                 break;
         }
     }
