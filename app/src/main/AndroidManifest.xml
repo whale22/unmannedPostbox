@@ -34,7 +34,9 @@
         <activity android:name=".OpenCloseActivity" />
         <activity android:name=".BarcodeActivity" />
         <activity android:name=".payComplete" />
-        <activity android:name=".account"></activity>
+        <activity android:name=".account" />
+        <activity android:name=".Password" />
+        <activity android:name=".passResult"></activity>
     </application>
 
 </manifest>
