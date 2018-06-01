@@ -62,7 +62,7 @@ public class OpenCloseActivity extends AppCompatActivity implements View.OnClick
             //--------------------------
             //   URL 설정하고 접속하기
             //--------------------------
-            URL url = new URL("http://192.168.52.129:8080/");       // URL 설정
+            URL url = new URL("http://192.168.1.79:8080/");       // URL 설정
             HttpURLConnection http = (HttpURLConnection) url.openConnection();   // 접속
             //--------------------------
             //   전송 모드 설정 - 기본적인 설정이다
