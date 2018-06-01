@@ -1,13 +1,10 @@
 package com.example.user.unmannedpostbox;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Build;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.view.View;
 import android.nfc.NfcAdapter;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.Toast;
 
 public class NFCActivity extends AppCompatActivity implements View.OnClickListener {

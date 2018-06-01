@@ -1,12 +1,10 @@
 package com.example.user.unmannedpostbox;
 
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,11 +13,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
-import java.net.ProtocolException;
 import java.net.URL;
 
 public class OpenCloseActivity extends AppCompatActivity implements View.OnClickListener {
@@ -60,13 +55,14 @@ public class OpenCloseActivity extends AppCompatActivity implements View.OnClick
     //   Http Post로 주고 받기
     //------------------------------
     public String HttpPostData() {
+        StringBuilder builder = new StringBuilder();
         try {
 
             String response = null;
             //--------------------------
             //   URL 설정하고 접속하기
             //--------------------------
-            URL url = new URL("http://192.168.174.131:8080/");       // URL 설정
+            URL url = new URL("http://192.168.52.129:8080/");       // URL 설정
             HttpURLConnection http = (HttpURLConnection) url.openConnection();   // 접속
             //--------------------------
             //   전송 모드 설정 - 기본적인 설정이다
@@ -104,7 +100,6 @@ public class OpenCloseActivity extends AppCompatActivity implements View.OnClick
             //--------------------------
             InputStreamReader tmp = new InputStreamReader(http.getInputStream(), "UTF-8");
             BufferedReader reader = new BufferedReader(tmp);
-            StringBuilder builder = new StringBuilder();
             String str;
             while ((str = reader.readLine()) != null) {       // 서버에서 라인단위로 보내줄 것이므로 라인단위로 읽는다
                 builder.append(str + "\n");                     // View에 표시하기 위해 라인 구분자 추가
@@ -118,6 +113,7 @@ public class OpenCloseActivity extends AppCompatActivity implements View.OnClick
         } catch (IOException e) {
             //
         } // try
+        return builder.toString();
     } // HttpPostData
 
     public void onClick(View v) {
