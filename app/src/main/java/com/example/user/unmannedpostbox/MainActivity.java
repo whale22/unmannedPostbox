@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
                 }
                 break;
             case R.id.openButton:
-                startActivity(new Intent(this,OpenCloseActivity.class));
+                startActivity(new Intent(this,Password.class));
                 break;
             case R.id.passButton:
                 startActivity(new Intent(this,Password.class));

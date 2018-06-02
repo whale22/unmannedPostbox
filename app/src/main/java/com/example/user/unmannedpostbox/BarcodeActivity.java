@@ -7,27 +7,33 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
 
-public class BarcodeActivity extends AppCompatActivity {
+public class BarcodeActivity extends AppCompatActivity implements View.OnClickListener  {
+    static String bu;
+    static int flag=0;
+    TextView tv;
     private static String br;
     private IntentIntegrator qrScan;
     private Button buttonScan;
+    private Button openButton;
     private TextView textViewResult;
 
 
@@ -38,6 +44,8 @@ public class BarcodeActivity extends AppCompatActivity {
 
         buttonScan = (Button) findViewById(R.id.buttonScan);
         textViewResult = (TextView)findViewById(R.id.textViewResult);
+        openButton=(Button)findViewById(R.id.openButton);
+        findViewById(R.id.barOpen).setOnClickListener(this);
         qrScan = new IntentIntegrator(this);
 
         buttonScan.setOnClickListener(new View.OnClickListener() {
@@ -91,6 +99,7 @@ public class BarcodeActivity extends AppCompatActivity {
 
         protected void onPostExecute(Integer a) {
             //tv.setText(result);
+            endPass();
         }
 
     }
@@ -105,11 +114,11 @@ public class BarcodeActivity extends AppCompatActivity {
         StringBuilder builder = new StringBuilder();
         try {
 
+
             String response = null;
-            //--------------------------
             //   URL 설정하고 접속하기
             //--------------------------
-            URL url = new URL("http://192.168.1.79:8080/barcode/");       // URL 설정
+            URL url = new URL("http://192.168.35.148/barcodeCheck.php");       // URL 설정
             HttpURLConnection http = (HttpURLConnection) url.openConnection();   // 접속
             //--------------------------
             //   전송 모드 설정 - 기본적인 설정이다
@@ -121,10 +130,41 @@ public class BarcodeActivity extends AppCompatActivity {
 
             // 서버에게 웹에서 <Form>으로 값이 넘어온 것과 같은 방식으로 처리하라는 걸 알려준다
             http.setRequestProperty("content-type", "application/x-www-form-urlencoded");
-            http.connect();
-            response = http.getResponseMessage();
-            Log.d("RESPONSE", "The response is: " + response);
+            StringBuffer buffer = new StringBuffer();
+            //buffer.append("id").append("=").append(myId).append("&");                 // php 변수에 값 대입
+            //buffer.append("pword").append("=").append(myPWord).append("&");   // php 변수 앞에 '$' 붙이지 않는다
+            //buffer.append("name").append("=").append(nameText.getText().toString()).append("&");           // 변수 구분은 '&' 사용
+            buffer.append("barcode").append("=").append(br);
 
+            Log.d("RESPONSE", "The response2 is: " +buffer.toString());
+            OutputStreamWriter outStream = new OutputStreamWriter(http.getOutputStream(), "UTF-8");
+            Log.d("RESPONSE", "The response3 is: " +buffer.toString());
+            PrintWriter writer = new PrintWriter(outStream);
+            writer.write(buffer.toString());
+            writer.flush();
+            outStream.close();
+            writer.close();
+            //--------------------------
+            //   서버에서 전송받기
+            //--------------------------
+            InputStreamReader tmp = new InputStreamReader(http.getInputStream(), "UTF-8");
+            BufferedReader reader = new BufferedReader(tmp);
+            String str;
+            str=reader.readLine();
+            bu=str.toString();
+            if(bu.equals("true")){
+                Log.d("RESPONSE", "bu is true");
+                flag=1;
+
+            }
+            else
+                Log.d("RESPONSE", "bu is false");
+            Log.d("RESPONSE", "The response4 is: " + bu);
+            http.disconnect();
+            /*while ((str = reader.readLine()) != null) {       // 서버에서 라인단위로 보내줄 것
+            이므로 라인단위로 읽는다
+                builder.append(str + "\n");                     // View에 표시하기 위해 라인 구
+            }*/
             /*
             OutputStream os = http.getOutputStream(); //output스트림 개방
             InputStream is = http.getInputStream();        //input스트림 개방
@@ -147,24 +187,6 @@ public class BarcodeActivity extends AppCompatActivity {
             //--------------------------
             //   서버에서 답 전송받기
             //--------------------------
-            InputStreamReader tmp = new InputStreamReader(http.getInputStream(), "UTF-8");
-            BufferedReader reader = new BufferedReader(tmp);
-            String str;
-            Button ob = (Button)findViewById(R.id.barOpen);
-            TextView tv = (TextView)findViewById(R.id.barcodeResult);
-            while ((str = reader.readLine()) != null) {       // 서버에서 라인단위로 보내줄 것이므로 라인단위로 읽는다
-                builder.append(str + "\n");                     // View에 표시하기 위해 라인 구분자 추가
-            }
-            TextView tv2 = findViewById(R.id.resultText);
-            tv.setText(builder);
-            //오케이 사인이면 문 오픈 버튼 드러나고 성공 문구 뜸 아니면 인식실패 뜨면서 그냥 있음
-            if(tv.equals("true")){
-                tv2.setText("등록된 택배물입니다.");
-                ob.setVisibility(View.VISIBLE);
-            }else{
-                tv2.setText("등록된 택배물이 아닙니다.");
-                Toast.makeText(BarcodeActivity.this, "인식 실패! 등록된 택배물이 아닙니다.", 0).show();
-            }
             return builder.toString();
         } catch (MalformedURLException e) {
             //
@@ -177,8 +199,19 @@ public class BarcodeActivity extends AppCompatActivity {
         switch (v.getId()) {
             case R.id.barOpen:
                 startActivity(new Intent(this,OpenCloseActivity.class));
+                flag=0;
                 this.finish();
                 break;
+        }
+    }
+    public void endPass(){
+        Button bt = (Button)findViewById(R.id.barOpen);
+        //정보가 있으면 다음으로 아니면 toast
+        if(flag==1){
+            bt.setVisibility(View.VISIBLE);
+            Toast.makeText(this, "인증 성공. 등록된 택배물입니다.", Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(this, "인증 실패! 등록된 택배물이 아닙니다.", Toast.LENGTH_SHORT).show();
         }
     }
 }

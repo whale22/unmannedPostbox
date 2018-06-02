@@ -62,7 +62,7 @@ public class OpenCloseActivity extends AppCompatActivity implements View.OnClick
             //--------------------------
             //   URL 설정하고 접속하기
             //--------------------------
-            URL url = new URL("http://192.168.1.79:8080/");       // URL 설정
+            URL url = new URL("http://192.168.35.148:8080/");       // URL 설정
             HttpURLConnection http = (HttpURLConnection) url.openConnection();   // 접속
             //--------------------------
             //   전송 모드 설정 - 기본적인 설정이다
@@ -98,14 +98,6 @@ public class OpenCloseActivity extends AppCompatActivity implements View.OnClick
             //--------------------------
             //   서버에서 전송받기
             //--------------------------
-            InputStreamReader tmp = new InputStreamReader(http.getInputStream(), "UTF-8");
-            BufferedReader reader = new BufferedReader(tmp);
-            String str;
-            while ((str = reader.readLine()) != null) {       // 서버에서 라인단위로 보내줄 것이므로 라인단위로 읽는다
-                builder.append(str + "\n");                     // View에 표시하기 위해 라인 구분자 추가
-            }
-            builder.append("되는거임?");
-            Toast.makeText(OpenCloseActivity.this, "수동 개폐 완료", 0).show();
 
             return builder.toString();
         } catch (MalformedURLException e) {
@@ -119,9 +111,11 @@ public class OpenCloseActivity extends AppCompatActivity implements View.OnClick
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.cancel_action:
+                Toast.makeText(OpenCloseActivity.this, "택배함 조작을 종료합니다.", 0).show();
                 this.finish();
                 break;
             case R.id.control_action:
+                Toast.makeText(OpenCloseActivity.this, "개폐가 완료되었습니다.", 0).show();
                 task = new BackgroundTask();
                 task.execute(); // 서버와 자료 주고받기
                 tv.setText(resultTmp);
