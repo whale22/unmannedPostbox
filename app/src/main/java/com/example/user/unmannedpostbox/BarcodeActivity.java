@@ -118,7 +118,7 @@ public class BarcodeActivity extends AppCompatActivity implements View.OnClickLi
             String response = null;
             //   URL 설정하고 접속하기
             //--------------------------
-            URL url = new URL("http://192.168.35.148/barcodeCheck.php");       // URL 설정
+            URL url = new URL("http://192.168.1.79/barcodeCheck.php");       // URL 설정
             HttpURLConnection http = (HttpURLConnection) url.openConnection();   // 접속
             //--------------------------
             //   전송 모드 설정 - 기본적인 설정이다
@@ -199,7 +199,6 @@ public class BarcodeActivity extends AppCompatActivity implements View.OnClickLi
         switch (v.getId()) {
             case R.id.barOpen:
                 startActivity(new Intent(this,OpenCloseActivity.class));
-                flag=0;
                 this.finish();
                 break;
         }
@@ -210,7 +209,9 @@ public class BarcodeActivity extends AppCompatActivity implements View.OnClickLi
         if(flag==1){
             bt.setVisibility(View.VISIBLE);
             Toast.makeText(this, "인증 성공. 등록된 택배물입니다.", Toast.LENGTH_SHORT).show();
+            flag=0;
         }else{
+            bt.setVisibility(View.INVISIBLE);
             Toast.makeText(this, "인증 실패! 등록된 택배물이 아닙니다.", Toast.LENGTH_SHORT).show();
         }
     }
