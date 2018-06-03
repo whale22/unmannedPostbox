@@ -79,7 +79,7 @@ public class Password extends AppCompatActivity implements View.OnClickListener 
             //--------------------------
             //   URL 설정하고 접속하기
             //--------------------------
-            URL url = new URL("http://192.168.35.148/passCheck.php");       // URL 설정
+            URL url = new URL("http://192.168.1.79/passCheck.php");       // URL 설정
             HttpURLConnection http = (HttpURLConnection) url.openConnection();   // 접속
             //--------------------------
             //   전송 모드 설정 - 기본적인 설정이다
